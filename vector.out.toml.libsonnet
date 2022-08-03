@@ -41,7 +41,7 @@
           if !std.isObject(self.object[opt])
         ],
         ''
-      ) + '\n'
+      ) + if std.objectHas(self.object, 'api') then fmt.table(['api'], self.object.api) else '' + '\n'
     ) +
     // All others components (sources, transforms and sinks) are generated in this block,
     // following the given order.
