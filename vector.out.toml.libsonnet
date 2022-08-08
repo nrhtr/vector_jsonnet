@@ -161,7 +161,19 @@
                 '\n'
               ) + std.repeat($.assets.tab, indent) + '"""'
         else '' + v,
-      kvpair(k, v, indent=0): std.repeat($.assets.tab, indent) + fmt.key(k) + ' = ' + fmt.value(v, indent) + '\n',
+      buckets(v):
+        '[' + std.foldl(
+          function(toml, value)
+            toml + value + ','
+          ,
+          v,
+          ''
+        ) + ']',
+      kvpair(k, v, indent=0):
+        if k == 'buckets' then
+          std.repeat($.assets.tab, indent) + fmt.key(k) + ' = ' + fmt.buckets(v) + '\n'
+        else
+          std.repeat($.assets.tab, indent) + fmt.key(k) + ' = ' + fmt.value(v, indent) + '\n',
       table(keys, body, indent=0):
         fmt.table_.head(keys, indent) +
         fmt.table_.body(keys, body, indent),
