@@ -155,8 +155,8 @@
               std.foldl(
                 function(toml, line)
                   toml +
-                  std.repeat($.assets.tab, indent) +
-                  std.stripChars(std.escapeStringJson(line), '"') + '\n',
+                  std.repeat($.assets.tab, indent) + line + '\n',
+                // std.stripChars(std.escapeStringJson(line), '"') + '\n',
                 lines,
                 '\n'
               ) + std.repeat($.assets.tab, indent) + '"""'
